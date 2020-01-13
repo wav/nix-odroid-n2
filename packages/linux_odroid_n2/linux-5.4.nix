@@ -7,11 +7,11 @@ with (import ./patch.nix);
 let
   configfile = ./linux-5.4.config;
 
-  version = "5.4.8";
+  version = "5.4.10";
   branch = versions.majorMinor version;
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "1j4916izy2nrzq7g6m5m365r60hhhx9rqcanjlaxv5x3vsy63ggx";
+    sha256 = "1p9f0h9fl1xy13dag1x7j2ic8kdv0zsp42c8baxn7cz3llc04g7j";
   };
   # modDirVersion needs to be x.y.z, will always add .0
   modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
@@ -28,7 +28,7 @@ let
     (armbianPatch "general-add-overlay-compilation-support")
     (armbianPatch "general-dwc2-partial-powerdown-fix")
     (armbianPatch "general-meson64-i2cX-missing-pins")
-    (armbianPatch "general-meson64-overlays")
+    # (armbianPatch "general-meson64-overlays")
     (armbianPatch "meson64_fclk_div3")
     (armbianPatch "meson64_remove_spidev_warning")
     (armbianPatch "x-0147-si2168-fix-cmd-timeout")

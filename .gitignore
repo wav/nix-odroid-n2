@@ -1,3 +1,6 @@
-.DS_Store
-.release.nix.swp
+**/.DS_Store
+*.swp
 result
+*.out
+.DS_Store
+**/.DS_Store
