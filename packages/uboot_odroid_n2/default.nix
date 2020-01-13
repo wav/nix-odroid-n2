@@ -15,7 +15,7 @@ buildUBoot {
   };
   defconfig = "odroid-n2_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
-  filesToInstall = [ "fip/u-boot.bin.sd.bin" ];
+  filesToInstall = [ "extra/fip/u-boot.bin.sd.bin" ];
   extraPatches = [ ./extra/reset-usb.patch ];
   preBuild = ''
   cp -Rf ${extra} extra

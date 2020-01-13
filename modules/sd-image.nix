@@ -25,7 +25,7 @@
 
   sdImage = {
     imageBaseName = "odroid-n2";
-    compressImage = false;
+    #compressImage = false;
     populateFirmwareCommands = lib.mkOverride 0 '''';
   };
   

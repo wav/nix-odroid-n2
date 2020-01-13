@@ -6,13 +6,16 @@ let
   targetSystem = "aarch64-linux";
 
   sdImageConfig = import (nixpkgs+"/nixos/lib/eval-config.nix") {
-     modules = [ ./modules/sd-image.nix ];
+     modules = [ 
+       ./modules/sd-image.nix
+       (if (targetSystem == builtins.currentSystem) then {}
+       else ./cross.nix)
+     ];
   };
 
   mkJob  = { select, system ? builtins.currentSystem }: select (import nixpkgs (
-	if (targetSystem == system)
-        then { inherit system; }
-	else { crossSystem = targetSystem; }
+    if (targetSystem == system) then { inherit system; }
+    else { crossSystem = targetSystem; }
   ));
 
   jobs = rec {
@@ -30,7 +33,7 @@ let
         # Maybe, meson-tools' amlbootsig could be used instead
         assert (builtins.currentSystem == "x86_64-linux");
 
-	mkJob { select = pkgs: (pkgs.callPackage ./packages/uboot_odroid_n2/default.nix (pkgs // { inherit ethaddr; })); }
+        mkJob { select = pkgs: (pkgs.callPackage ./packages/uboot_odroid_n2/default.nix (pkgs // { inherit ethaddr; })); }
     );
 
   };
