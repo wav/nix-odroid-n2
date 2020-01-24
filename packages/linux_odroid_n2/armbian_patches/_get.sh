@@ -22,6 +22,8 @@ display_alert() {
     echo -e $@
 }
 
+## FROM THE ARMBIAN BUILD
+
 # advanced_patch <dest> <family> <board> <target> <branch> <description>
 #
 # parameters:

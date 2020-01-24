@@ -2,6 +2,8 @@
 
 > Suitable for a server. Make sure you have your UART.
 
+Works for me. Provided as given.
+
 ### What's working
 
 - RTC
@@ -10,13 +12,17 @@
 
 ### What's not working
 
-- Linux desktop acceleration (needs panfrost drivers?).
-- WOL :(
-- Boots from eMMC (not sure why it doesn't work, hardware partitions?, it's "supposed to work")
+- Resetting the network adapter (`ip link set eth0 down/up`) requires a reboot!
+	- WOL :(
 
-### Status
+### Not tested
 
-Works for me. Provided as given.
+- Boots from eMMC (not sure why it doesn't work, hardware partitions?, it's "supposed to work") (won't)
+- Linux desktop acceleration (needs panfrost drivers?) (won't fix)
+
+### Not tried
+
+- Audio
 
 ### How to use this
 

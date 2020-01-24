@@ -7,11 +7,11 @@ with (import ./patch.nix);
 let
   configfile = ./linux-5.4.config;
 
-  version = "5.4.10";
+  version = "5.4.13";
   branch = versions.majorMinor version;
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "1p9f0h9fl1xy13dag1x7j2ic8kdv0zsp42c8baxn7cz3llc04g7j";
+    sha256 = "1mva73ywb2r5lrmzp5m7hyy0zpgxdg91nw42c1z1sz3ydpcjkys9";
   };
   # modDirVersion needs to be x.y.z, will always add .0
   modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
