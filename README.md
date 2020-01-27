@@ -2,7 +2,9 @@
 
 > Suitable for a server. Make sure you have your UART.
 
-Works for me. Provided as given.
+Kernel patches sourced from the Armbian build.
+
+Builds on the nix `staging` branch (for 20.03).
 
 ### What's working
 

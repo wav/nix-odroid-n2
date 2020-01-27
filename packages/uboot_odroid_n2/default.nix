@@ -5,17 +5,18 @@ let
   ethaddr_ = if (ethaddr == null) then "" else ethaddr;
 in
 buildUBoot {
-  version = "v2019.10";
+  version = "v2020.1";
   src = fetchFromGitLab {
     domain = "gitlab.denx.de";
     owner = "u-boot";
     repo = "u-boot";
-    rev = "61ba1244b548463dbfb3c5285b6b22e7c772c5bd";
-    sha256 = "0fj1dgg6nlxkxhjl1ir0ksq6mbkjj962biv50p6zh71mhbi304in";
+    rev = "262d34363373c10a00279036c1561283c30495c2";
+    sha256 = "0p6vl5skcc4sgmca1r9lxq0yff6pj0z19cil75s1xw7fjhkmjasg";
   };
   defconfig = "odroid-n2_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
   filesToInstall = [ "extra/fip/u-boot.bin.sd.bin" ];
+  patches = [];
   extraPatches = [ ./extra/reset-usb.patch ];
   preBuild = ''
   cp -Rf ${extra} extra
