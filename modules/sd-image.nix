@@ -6,7 +6,7 @@
     ./packages.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_odroid_n2_5_5;
+  boot.kernelPackages = pkgs.linuxPackages_odroid_n2_5_4;
   boot.kernelParams = [
     "no_console_suspend"
     "consoleblank=0"
