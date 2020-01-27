@@ -19,7 +19,6 @@ let
   kernelPatches = [
     # rtc
     (librePatch "amlogic-0156-WIP-arm64-dts-meson-g12b-odroid-n2-add-battery-rtc-s")
-    (forumPatch "text-offset")
   ] ++ (armbianPatches "meson64-dev");
 
 in (callPackage ./generic.nix (args // {
