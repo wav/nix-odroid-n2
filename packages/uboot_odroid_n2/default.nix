@@ -32,7 +32,7 @@ buildUBoot {
         rm /tmp/.sedw || true
   }
   if [[ "${ethaddr_}" != "" ]]; then
-    sedw 's|\("distro_bootcmd=".*\)\\|"ethaddr=${ethaddr_}\\0" \\\n        \1|' include/config_distro_bootcmd.h
+    sedw 's|"distro_bootcmd="\(.*\)\\|"setenv ethaddr ${ethaddr_};"\\\n        "distro_bootcmd=" \1 \\|' include/config_distro_bootcmd.h
   fi
   for path in ./extra/pack.sh ./extra/fip/blx_fix.sh; do
     sedw 's|#!/usr/bin/env bash|#!${args.bash}/bin/bash|' $path

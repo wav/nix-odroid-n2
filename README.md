@@ -43,13 +43,15 @@ sync
 
 2. Build a u-boot (x86_64 box only :S)
 
-`nix-build release.nix -A uboot`
+Build uboot with an ethernet address configured
+
+`nix-build release.nix -A uboot --argstr ethaddr "00:11:22:33:44:55"`
 
 Then `dd` it to the sd card (or usb or eMMC)
 
 ```
 DEV=/dev/mmcblkX
-UBOOT=./result/???/fip/uboot.bin.sd.bin
+UBOOT=result/uboot.bin.sd.bin
 dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=512 skip=1 seek=1
 dd if= of=$DEV conv=fsync,notrunc bs=1 count=444
 sync
