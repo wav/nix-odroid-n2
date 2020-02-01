@@ -62,7 +62,6 @@
 "0436-media-hantro-Add-support-for-H264-decoding-on-RK3399"
 "0437-media-hantro-Enable-H264-decoding-on-RK3399"
 "0438-media-hantro-Enable-H264-decoding-on-RK3328"
-"2001-drm-lima-devfreq-and-cooling-device-support"
 "Add-support-of-CEC-wakeup-on-Amlogic-G12-and-SM1-SoCs"
 "ARM-dts-meson-clock-updates"
 "board-media-rc-drivers-should-produce-alternate-pulse-and-space-timing-events"

@@ -7,15 +7,14 @@ with (import ./patch/default.nix stdenv.lib);
 let
   configfile = ./linux-5.5.config;
 
-  version = "5.5";
-  branch = versions.majorMinor version;
+  version = "5.6-rc1";
+  branch = "5.6";
   src = fetchurl {
-    url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "0c131fi6s7vgvka1c0597vnvcmwn1pp968rci5kq64iwj3pd9yx6";
+    url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
+    sha256 = "10fjk4bw73x5xpb4q83ngni7slw489wdxhdwmyrkfqqy5chgm29d";
   };
   # modDirVersion needs to be x.y.z, will always add .0
-  modDirVersion = "5.5.0";
-  # modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
+  modDirVersion = if (modDirVersionArg == null) then builtins.replaceStrings ["-"] [".0-"] version else modDirVersionArg;
 
   kernelPatches = (patchsets [
     "armbian/5.5"

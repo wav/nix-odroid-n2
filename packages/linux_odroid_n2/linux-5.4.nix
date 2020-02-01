@@ -2,25 +2,26 @@
 
 with stdenv.lib;
 
-with (import ./patch.nix);
+with (import ./patch/default.nix stdenv.lib);
 
 let
   configfile = ./linux-5.4.config;
 
-  version = "5.4.15";
+  version = "5.4.16";
   branch = versions.majorMinor version;
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "1ccldlwj89qd22cl06706w7xzm8n69m6kg8ic0s5ns0ghlpj41v4";
+    sha256 = "0ynspac26hn7pj8fahacvdlyq8kqin0hmfjiymi20y3l57gl25ci";
   };
   # modDirVersion needs to be x.y.z, will always add .0
   modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
 
-  kernelPatches = [
-    # rtc
-    (librePatch "amlogic-0156-WIP-arm64-dts-meson-g12b-odroid-n2-add-battery-rtc-s")
-    (forumPatch "text-offset")
-  ] ++ (armbianPatches "meson64-current");
+  kernelPatches = (patchsets [
+    "armbian/5.4"
+    "forum/5.4"
+    "libre/5.4"
+    "khadas/5.4"
+  ]);
 
 in (callPackage ./generic.nix (args // {
     inherit src version modDirVersion configfile kernelPatches branch;

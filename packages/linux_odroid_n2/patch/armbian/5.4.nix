@@ -44,8 +44,6 @@
 "0352-ASoC-hdmi-codec-reorder-channel-allocation-list"
 "0353-multi-channel-GX-audio-hack"
 "0360-arm64-dts-meson-tanix-tx3-add-thermal-zones"
-"2000-drm-lima-simplify-driver-by-using-more-drm-helpers"
-"2001-drm-lima-devfreq-and-cooling-device-support"
 "3000-arm64_dts_meson-g12a_Add_PCIe_node"
 "3001-arm64_dts_meson_g12a_add_internal_DAC"
 "3002-arm64_dts_meson_Add_capacity-dmips-mhz_attributes_to_G12B"
