@@ -23,6 +23,8 @@ let
     # TODO investigate reusing overlay
     # kernel_5_4 = mkJob { select = pkgs: pkgs.linuxPackages_odroid_n2_5_4; };
 
+    kernel_4_9 = mkJob { select = pkgs: (pkgs.callPackage ./packages/linux_odroid_n2/linux-hardkernel-4.9.nix pkgs); };
+
     kernel_5_4 = mkJob { select = pkgs: (pkgs.callPackage ./packages/linux_odroid_n2/linux-5.4.nix pkgs); };
 
     kernel_5_5 = mkJob { select = pkgs: (pkgs.callPackage ./packages/linux_odroid_n2/linux-5.5.nix pkgs); };
