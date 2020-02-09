@@ -15,6 +15,8 @@
     "net.ifnames=0"
     "elevator=noop"
     "ethaddr=\${ethaddr}"
+    "enable_wol=1"
+    "usb-xhci.tablesize=2"
   ];
 
   boot.consoleLogLevel = lib.mkDefault 7;
