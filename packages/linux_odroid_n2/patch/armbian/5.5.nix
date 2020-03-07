@@ -71,7 +71,6 @@
 "board-odroidc2-add-uartA-uartC"
 "board-odroidc2-enable-scpi-dvfs"
 "board-odroidc2-enable-SPI"
-"crypto-amlogic-fix-removal-of-module"
 "drm-meson-Remove-unneeded-semicolon"
 "general-add-configfs-overlay"
 "general-add-overlay-compilation-support"
@@ -84,6 +83,5 @@
 "parkmode_disable_ss_quirk_on_DWC3"
 "update_entries_for_disabling_SS_instances_in_park_mode"
 "usb_dwc3_Add_support_for_disabling_SS_instances_in_park_mode"
-"v2-clk-meson-pll-Fix-by-0-division-in-__pll_params_to_rate"
 "x-0147-si2168-fix-cmd-timeout"
 ]

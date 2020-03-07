@@ -5,22 +5,19 @@ with stdenv.lib;
 with (import ./patch/default.nix stdenv.lib);
 
 let
-  configfile = ./linux-5.5.config;
+  configfile = ./linux-5.4.config;
 
-  version = "5.5";
+  version = "5.5.7";
   branch = versions.majorMinor version;
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "0c131fi6s7vgvka1c0597vnvcmwn1pp968rci5kq64iwj3pd9yx6";
+    sha256 = "0j3ykz9yym2hvv3qx286g4yrx2ala4b1d5p9zif9qmch28ryyhxq";
   };
   # modDirVersion needs to be x.y.z, will always add .0
-  modDirVersion = "5.5.0";
-  # modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
+  modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
 
   kernelPatches = (patchsets [
     "armbian/5.5"
-    "libre/5.5"
-    "khadas/5.4"
   ]);
 
 in (callPackage ./generic.nix (args // {

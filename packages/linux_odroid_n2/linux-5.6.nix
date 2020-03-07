@@ -5,21 +5,19 @@ with stdenv.lib;
 with (import ./patch/default.nix stdenv.lib);
 
 let
-  configfile = ./linux-5.5.config;
+  configfile = ./linux-5.4.config;
 
-  version = "5.6-rc1";
+  version = "5.6-rc4";
   branch = "5.6";
   src = fetchurl {
     url = "https://git.kernel.org/torvalds/t/linux-${version}.tar.gz";
-    sha256 = "10fjk4bw73x5xpb4q83ngni7slw489wdxhdwmyrkfqqy5chgm29d";
+    sha256 = "0dz0g6l06qxmd7zrakixcms45108zcyn3sk6fdj5wrrmzbpy6ijj";
   };
   # modDirVersion needs to be x.y.z, will always add .0
   modDirVersion = if (modDirVersionArg == null) then builtins.replaceStrings ["-"] [".0-"] version else modDirVersionArg;
 
   kernelPatches = (patchsets [
-    "armbian/5.5"
-    "libre/5.5"
-    "khadas/5.4"
+    "armbian/5.6"
   ]);
 
 in (callPackage ./generic.nix (args // {

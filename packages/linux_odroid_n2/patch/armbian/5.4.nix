@@ -74,12 +74,10 @@
 "general-meson64-i2cX-missing-pins"
 "general-meson64-overlays"
 "linux-5.4-net-smsc95xx-allow-mac-address-as-param"
-"media-meson-add-missing-allocation-failure-check-on-new_buf"
 "meson64_fclk_div3"
 "meson64_remove_spidev_warning"
 "parkmode_disable_ss_quirk_on_DWC3"
 "update_entries_for_disabling_SS_instances_in_park_mode"
 "usb_dwc3_Add_support_for_disabling_SS_instances_in_park_mode"
-"v2-clk-meson-pll-Fix-by-0-division-in-__pll_params_to_rate"
 "x-0147-si2168-fix-cmd-timeout"
 ]
