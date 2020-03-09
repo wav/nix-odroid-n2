@@ -7,7 +7,7 @@
 
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_odroid_n2_5_5;
+  boot.kernelPackages = pkgs.linuxPackages_odroid_n2_5_6;
   boot.kernelParams = [
     "no_console_suspend"
     "consoleblank=0"

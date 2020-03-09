@@ -7,11 +7,11 @@ with (import ./patch/default.nix stdenv.lib);
 let
   configfile = ./linux-5.4.config;
 
-  version = "5.4.23";
+  version = "5.4.24";
   branch = versions.majorMinor version;
   src = fetchurl {
     url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-    sha256 = "1jhyg2yc03fka92l7hwdajim6q5rk538hjdr1gwgvpfyyp6sla1z";
+    sha256 = "1cvy3mxwzll4f9j8i3hfmi0i0zq75aiafq1jskp9n4kq9iwar83z";
   };
   # modDirVersion needs to be x.y.z, will always add .0
   modDirVersion = if (modDirVersionArg == null) then concatStringsSep "." (take 3 (splitVersion "${version}.0")) else modDirVersionArg;
@@ -23,5 +23,8 @@ let
   ]);
 
 in (callPackage ./generic.nix (args // {
-    inherit src version modDirVersion configfile kernelPatches branch;
+  inherit src version modDirVersion configfile kernelPatches branch;
+  NIX_CFLAGS_COMPILE = toString [
+    "-mcpu=native"
+  ];
 }))

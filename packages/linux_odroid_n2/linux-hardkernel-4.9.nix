@@ -8,7 +8,7 @@ let
     version = "s922_9.0.0_64_20200130";
   
     # modDirVersion needs to be x.y.z.
-    modDirVersion = "4.9.210";
+    modDirVersion = "4.9.113";
   
     # branchVersion needs to be x.y.
     extraMeta.branch = "4.9";
@@ -23,9 +23,21 @@ let
     defconfig = "odroidn2_defconfig";
   
     kernelPatches = [];
-  
+
+    extraConfig = ''
+      EXT4_ENCRYPTION y
+    '';
+
   } // (args.argsOverride or {}));
 in
 overrideDerivation configuredKernel (old: {
-    stedenv = overrideCC stdenv gcc6;
+  NIX_CFLAGS_COMPILE = toString [
+    "-mcpu=native"
+    "-Wno-error=attribute-alias"
+    "-Wno-error=missing-attributes"
+    "-Wno-error=stringop-truncation"
+    "-Wno-error=address-of-packed-member"
+    "-Wno-error=array-bounds"
+  ];
+  # stedenv = overrideCC stdenv gcc6;
 })
