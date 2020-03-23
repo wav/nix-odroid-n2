@@ -1,8 +1,14 @@
-kernel:
-	nix-build release.nix -A kernel_5_4
+# make kernel_5_6
+#
+# make kernel_4_9 ARGS="--arg broken true"
 
-uboot:
-	nix-build release.nix -A uboot
+TARGETS:=uboot sdImage kernel_4_9 kernel_5_4 kernel_5_5 kernel_5_6
 
-sd-image:
-	nix-build release.nix -A sdImage
+print:
+	@echo $(TARGETS) | tr ' ' '\n'
+
+$(TARGETS):
+	@nix-build release.nix -k -A $@ $(ARGS)
+
+.PHONY: @(TARGETS)
+

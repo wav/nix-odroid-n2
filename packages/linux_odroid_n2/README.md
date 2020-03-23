@@ -9,8 +9,7 @@ The linux config file was generated originally from a working armbian build then
 The most significant, incomplete, config items that made nix bootable were:
 
 ```
-MESON.*=y
-# CONFIG_USB_UAS is not set
+CONFIG_.*MESON.*=y
 CONFIG_BLK_DEV_DM_BUILTIN=y
 ```
 
