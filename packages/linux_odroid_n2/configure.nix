@@ -1,26 +1,16 @@
-{ stdenv, 
-  src,
-  version,
-  modDirVersion,
-  configfile, 
-  kernelPatches,
-  branch,
-  # imports
-  buildLinux,
+{ kernel,
+  configfile,
   ubootTools,
-  ... } @ args:
+  stdenv,
+}:
 
 with stdenv.lib;
 
 let
-    patchedKernel = buildLinux (args // rec {
-        inherit src version modDirVersion kernelPatches;
-        # branchVersion needs to be x.y
-        extraMeta.branch = branch;
-    } // (args.argsOverride or {}));
+    inherit (kernel) modDirVersion;
 
     # slightly modify default configurePhase to use our own config with 'allnoconfig'
-    configuredKernel = (patchedKernel // (derivation (patchedKernel.drvAttrs // {
+    configuredKernel = (kernel // (derivation (kernel.drvAttrs // {
         configurePhase = ''
         runHook preConfigure
         mkdir build
