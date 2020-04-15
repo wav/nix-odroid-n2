@@ -8,7 +8,7 @@ callPackage ./configure.nix {
 
   configfile = ./linux-5.4.config;
 
-  kernel = callPackage <nixos/pkgs/os-specific/linux/kernel/linux-5.4.nix> {
+  kernel = callPackage <nixpkgs/pkgs/os-specific/linux/kernel/linux-5.4.nix> {
     kernelPatches = (patchsets [
       "armbian/5.4"
       "forum/5.4"
