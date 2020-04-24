@@ -5,21 +5,17 @@ let
   ethaddr_ = if (ethaddr == null) then "" else ethaddr;
 in
 buildUBoot {
-  version = "v2019.10";
+  version = "v2020.04.20";
   src = fetchFromGitLab {
     domain = "gitlab.denx.de";
-    owner = "u-boot";
-    repo = "u-boot";
-    rev = "61ba1244b548463dbfb3c5285b6b22e7c772c5bd";
-    sha256 = "0fj1dgg6nlxkxhjl1ir0ksq6mbkjj962biv50p6zh71mhbi304in";
+    owner = "u-boot/custodians";
+    repo = "u-boot-amlogic";
+    rev = "b608865b88f0a5172c8ddcb48fd0f513fa01e114";
+    sha256 = "0kyr59f6xka0ji37dv4k1kjys3sibgrppqx8g2rlc78bz8nyqhya";
   };
   defconfig = "odroid-n2_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
   filesToInstall = [ "u-boot.bin.sd.bin" ];
-  extraPatches = [ 
-        ./extra/meson_g12a_gic.patch
-	./extra/meson_pwrseq.patch
-  ];
   # TODO workout what the /tmp error is
   preBuild = ''
   cp -Rf ${extra} extra
@@ -32,7 +28,7 @@ buildUBoot {
         rm /tmp/.sedw || true
   }
   if [[ "${ethaddr_}" != "" ]]; then
-    sedw 's|"distro_bootcmd="\(.*\)\\|"setenv ethaddr ${ethaddr_};"\\\n        "distro_bootcmd=" \1 \\|' include/config_distro_bootcmd.h
+    sedw 's|"distro_bootcmd="\(.*\)\\|"distro_bootcmd=env exists ethaddr \|\| setenv ethaddr ${ethaddr_}; " \\\n         \1 \\|' include/config_distro_bootcmd.h
   fi
   for path in ./extra/pack.sh ./extra/fip/blx_fix.sh; do
     sedw 's|#!/usr/bin/env bash|#!${args.bash}/bin/bash|' $path
