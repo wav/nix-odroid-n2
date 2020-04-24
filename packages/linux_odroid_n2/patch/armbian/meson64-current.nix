@@ -76,8 +76,5 @@
 "linux-5.4-net-smsc95xx-allow-mac-address-as-param"
 "meson64_fclk_div3"
 "meson64_remove_spidev_warning"
-"parkmode_disable_ss_quirk_on_DWC3"
-"update_entries_for_disabling_SS_instances_in_park_mode"
-"usb_dwc3_Add_support_for_disabling_SS_instances_in_park_mode"
 "x-0147-si2168-fix-cmd-timeout"
 ]
