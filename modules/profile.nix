@@ -23,5 +23,8 @@
   boot.consoleLogLevel = lib.mkDefault 7;
 
   boot.supportedFilesystems = lib.mkForce [ "btrfs" "vfat" "cifs" ];
+
+  # Since 20.03, you must explicitly specify to use dhcp on an interface
+  networking.interfaces.eth0.useDHCP = true;
   
 }
