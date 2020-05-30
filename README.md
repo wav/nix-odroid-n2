@@ -56,6 +56,23 @@ dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=1 count=444
 sync
 ```
 
+## On your first boot
+
+Upon first boot, you will need to setup a `/etc/nixos/configuration.nix`. Generate one using `nixos-generate-config`.
+
+Afterwards, refer to the same `profile.nix` that the sd image was built from. This profile contains the board specific kernel package and configuration.
+
+```
+{ config, pkgs, lib, ... }:
+
+{
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+    /etc/nixos/nix-odroid-n2/modules/profile.nix
+  ];
+}
+```
+
 ## Lessons learnt
 
 - When a cross-compiled image is used. NixOS will be rebuilt on the device natively when doing `nixos-rebuild`.
