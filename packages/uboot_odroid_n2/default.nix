@@ -15,7 +15,7 @@ buildUBoot {
   };
   defconfig = "odroid-n2_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
-  filesToInstall = [ "u-boot.bin.sd.bin" ];
+  filesToInstall = [ "u-boot.bin" ];
   # TODO workout what the /tmp error is
   preBuild = ''
   cp -Rf ${extra} extra
@@ -40,6 +40,6 @@ buildUBoot {
   '';
   installPhase = ''
     mkdir -p $out
-    cp extra/fip/u-boot.bin.sd.bin $out
+    cp extra/fip/u-boot.bin $out
   '';
 }
