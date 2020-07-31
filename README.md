@@ -52,7 +52,6 @@ Then `dd` it to the sd card (or usb or eMMC)
 DEV=/dev/mmcblkX
 UBOOT=result/u-boot.bin.sd.bin
 dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=512 skip=1 seek=1
-dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=1 count=444
 sync
 ```
 
