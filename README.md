@@ -9,14 +9,13 @@ Built regularily on the nix `release-20.03` branch on `arm64` hardware.
 ### What's working
 
 - RTC
-- Boots from SD, USB (tested)
+- Boots from SD, USB, eMMC (tested)
 - ethaddr (MAC) if you hard code one, otherwise it will regenerate on boot.
 
 ### What's not working
 
 - Resetting the network adapter (`ip link set eth0 down/up`) requires a reboot!
 - WOL
-- Booting from eMMC (not sure why it doesn't work, hardware partitions?, it's "supposed to work")
 - Linux desktop acceleration (needs panfrost drivers?) (won't fix)
 
 ### Not tried
