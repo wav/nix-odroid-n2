@@ -62,15 +62,11 @@ sh fip/blx_fix.sh \
 	fip/bl2_new.bin \
 	bl2
 
-# --level and the --type have no effect without encryption keys.
-# --compress lz4 is not necessary if we don't want to try to fit
-# the whole boot loader into 1mb. Compressed will give us ~980k,
-# whereas uncompressed will yield ~1.3M.
 fip/aml_encrypt_g12b --bl30sig --input fip/bl30_new.bin --output fip/bl30_new.tmp
-fip/aml_encrypt_g12b --bl3sig  --input fip/bl30_new.tmp --output fip/bl30_new.bin.enc
-fip/aml_encrypt_g12b --bl3sig  --input fip/bl31.img     --output fip/bl31.img.enc
-fip/aml_encrypt_g12b --bl3sig  --input fip/bl33.bin     --output fip/bl33.bin.enc
-fip/aml_encrypt_g12b --bl2sig  --input fip/bl2_new.bin  --output fip/bl2.n.bin.sig
+fip/aml_encrypt_g12b --bl3sig --input fip/bl30_new.tmp  --output fip/bl30_new.bin.enc
+fip/aml_encrypt_g12b --bl3sig --input fip/bl31.img      --output fip/bl31.img.enc
+fip/aml_encrypt_g12b --bl3sig --input fip/bl33.bin      --output fip/bl33.bin.enc
+fip/aml_encrypt_g12b --bl2sig --input fip/bl2_new.bin   --output fip/bl2.n.bin.sig
 fip/aml_encrypt_g12b --bootmk \
 		--output fip/u-boot.bin \
 		--bl2 fip/bl2.n.bin.sig \
@@ -84,9 +80,8 @@ fip/aml_encrypt_g12b --bootmk \
 		--ddrfw5 fip/lpddr4_1d.fw \
 		--ddrfw6 fip/lpddr4_2d.fw \
 		--ddrfw7 fip/diag_lpddr4.fw \
-		--ddrfw8 fip/aml_ddr.fw \
-		--level v3
+		--ddrfw8 fip/aml_ddr.fw
 
 echo "# Write the image to SD with"
 echo DEV=/dev/mmcblkX
-echo dd if=fip/u-boot.bin of=\$DEV conv=fsync,notrunc bs=512 skip=1 seek=1
+echo dd if=fip/u-boot.bin of=\$DEV conv=fsync,notrunc bs=512 seek=1

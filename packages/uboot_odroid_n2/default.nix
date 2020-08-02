@@ -1,45 +1,31 @@
-{ buildUBoot, ethaddr ? null, stdenv, fetchFromGitLab, ... } @ args:
+{ buildUBoot, stdenv, fetchFromGitLab, ... } @ args:
 
 let
   extra = ./extra;
-  ethaddr_ = if (ethaddr == null) then "" else ethaddr;
 in
 buildUBoot {
   version = "v2020.04.20";
+  # See https://gitlab.denx.de/u-boot/custodians/u-boot-amlogic/-/commit/6de936b011fb02d1019a69aea0184cee4a578f59
+  # that's the first commit that introduces reading the ethaddr from the efuse!
   src = fetchFromGitLab {
     domain = "gitlab.denx.de";
     owner = "u-boot/custodians";
     repo = "u-boot-amlogic";
-    rev = "b608865b88f0a5172c8ddcb48fd0f513fa01e114";
-    sha256 = "0kyr59f6xka0ji37dv4k1kjys3sibgrppqx8g2rlc78bz8nyqhya";
+    rev = "6de936b011fb02d1019a69aea0184cee4a578f59";
+    sha256 = "19jkmnmvd6758j55bjvh0dimjw9j776y6m8y4xjngpypvfgzsclc";
   };
   defconfig = "odroid-n2_defconfig";
   extraMeta.platforms = [ "aarch64-linux" ];
-  filesToInstall = [ "u-boot.bin" ];
-  # TODO workout what the /tmp error is
+  filesToInstall = [ "u-boot.bin" ".config" ];
   preBuild = ''
   cp -Rf ${extra} extra
-  sedw() {
-        echo patching $2 ...
-	cp $2 /tmp/.sedw
-        sed -ibk "$1" /tmp/.sedw
-        chmod +w $2
-        cat /tmp/.sedw > $2
-        rm /tmp/.sedw || true
-  }
-  if [[ "${ethaddr_}" != "" ]]; then
-    sedw 's|"distro_bootcmd="\(.*\)\\|"distro_bootcmd=env exists ethaddr \|\| setenv ethaddr ${ethaddr_}; " \\\n         \1 \\|' include/config_distro_bootcmd.h
-  fi
-  for path in ./extra/pack.sh ./extra/fip/blx_fix.sh; do
-    sedw 's|#!/usr/bin/env bash|#!${args.bash}/bin/bash|' $path
-  done
+  chmod -Rf ug+w extra
+  patchShebangs ./extra/pack.sh
+  patchShebangs ./extra/fip/blx_fix.sh
   '';
   postBuild = ''
     chmod -Rf ug+w extra
     ./extra/pack.sh
-  '';
-  installPhase = ''
-    mkdir -p $out
-    cp extra/fip/u-boot.bin $out
+    cp extra/fip/u-boot.bin .
   '';
 }

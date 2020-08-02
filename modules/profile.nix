@@ -15,9 +15,18 @@
     "fsck.repair=yes"
     "net.ifnames=0"
     "elevator=noop"
-    "ethaddr=\${ethaddr}"
     "enable_wol=1"
     "usb-xhci.tablesize=2"
+    "maxcpus=6"
+    # "max_freq_a53=1896" # n2
+    # "max_freq_a73=1800" # n2
+    "max_freq_a53=1908" # n2-plus
+    "max_freq_a73=2208" # n2-plus
+    # enable CEC
+    "hdmitx=cec3f"
+    # enable uv7 // default to false
+    #"usbhid.quirks=0x0eef:0x0005:0x0004"
+
   ];
 
   boot.consoleLogLevel = lib.mkDefault 7;
@@ -26,5 +35,5 @@
 
   # Since 20.03, you must explicitly specify to use dhcp on an interface
   networking.interfaces.eth0.useDHCP = true;
-  
+
 }
