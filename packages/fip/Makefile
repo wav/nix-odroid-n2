@@ -19,10 +19,7 @@ bl33.3sig: $(UBOOT)
 bl2.2sig: bl2.pkg
 	bl2sig  --input $< --output $@
 
-u-boot.bin: bl2.2sig bl30.3sig bl31.3sig bl33.3sig data/ddr4_1d.fw data/ddr4_2d.fw data/ddr3_1d.fw data/piei.fw data/lpddr4_1d.fw data/lpddr4_2d.fw data/diag_lpddr4.fw data/aml_ddr.fw bl31.3sig.orig
-
-	ls -la .
-	ls -lah $^
+u-boot.bin: bl2.2sig bl30.3sig bl31.3sig bl33.3sig data/ddr4_1d.fw data/ddr4_2d.fw data/ddr3_1d.fw data/piei.fw data/lpddr4_1d.fw data/lpddr4_2d.fw data/diag_lpddr4.fw data/aml_ddr.fw
 	bootmk --output $@ \
 	  --bl2 bl2.2sig --bl30 bl30.3sig --bl31 bl31.3sig --bl33 bl33.3sig \
 	  --ddrfw1 data/ddr4_1d.fw   --ddrfw2 data/ddr4_2d.fw   --ddrfw3 data/ddr3_1d.fw     --ddrfw4 data/piei.fw \
