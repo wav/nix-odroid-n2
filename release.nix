@@ -27,12 +27,14 @@ let
 
     kernel_5_6 = mkJob { select = pkgs: (pkgs.callPackage ./packages/linux_odroid_n2/linux-5.6.nix pkgs); };
 
-  } // (optionalAttrs (builtins.currentSystem == "x86_64-linux") {
+  } // (optionalAttrs (builtins.currentSystem == "x86_64-linux") rec {
 
     # This cannot be built on aarch64 because the tool used to bind the blobs
     # and the built binary, aml_encrypt_g12b, is only available for the x86_64 arch.
     # Maybe, meson-tools' amlbootsig could be used instead
-    uboot =  mkJob { select = pkgs: (pkgs.callPackage ./packages/uboot_odroid_n2/default.nix pkgs); };
+    uboot = mkJob { select = pkgs: (pkgs.callPackage ./packages/uboot_odroid_n2 pkgs); };
+
+    fip = mkJob { select = pkgs: (pkgs.callPackage ./packages/fip (pkgs // { inherit uboot; })); };
 
  }) // (optionalAttrs (broken) {
 
