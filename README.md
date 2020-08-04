@@ -10,7 +10,7 @@ Built regularily on the nix `release-20.03` branch on `arm64` hardware.
 
 - RTC
 - Boots from SD, USB, eMMC (tested)
-- ethaddr (MAC) if you hard code one, otherwise it will regenerate on boot.
+- ethaddr
 
 ### What's not working
 
@@ -43,7 +43,7 @@ sync
 
 Build uboot with an ethernet address configured otherwise you will get a new IP on every boot
 
-`nix-build release.nix -A uboot --argstr ethaddr "00:11:22:33:44:55"`
+`nix-build release.nix -A uboot`
 
 Then `dd` it to the sd card (or usb or eMMC)
 
@@ -88,4 +88,3 @@ Afterwards, refer to the same `profile.nix` that the sd image was built from. Th
 - Armbian
 - LibreElec
 - Hardkernel forums
-
