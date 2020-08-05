@@ -41,16 +41,16 @@ sync
 
 2. Build a u-boot (x86_64 box only :S)
 
-Build uboot with an ethernet address configured otherwise you will get a new IP on every boot
+Build the firmware package `fip` that packs u-boot ready for use.
 
-`nix-build release.nix -A uboot`
+`nix-build release.nix -A fip`
 
 Then `dd` it to the sd card (or usb or eMMC)
 
 ```
 DEV=/dev/mmcblkX
-UBOOT=result/u-boot.bin.sd.bin
-dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=512 skip=1 seek=1
+UBOOT=result/u-boot.bin
+dd if=$UBOOT of=$DEV conv=fsync,notrunc bs=512 seek=1
 sync
 ```
 
